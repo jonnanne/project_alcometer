@@ -11,6 +11,7 @@ export default function App() {
   const [bottles, setBottles] = useState(0);
   const [time, setTime] = useState(0);
   const [gender, setGender] = useState("male");
+  const [result, setResult] = useState("");
 
   const alcoholConcentration = () => {
     if (! weight) {
@@ -33,7 +34,8 @@ export default function App() {
   if (permilles < 0) {
     permilles = 0;
   }
-  console.log (permilles)
+  //Showing the result
+  setResult(permilles.toFixed(2));
 };
 
   
@@ -60,7 +62,7 @@ export default function App() {
       value={weight}
       placeholder={"Enter you weight (kg)"}/>
 
-            {/*Radiobutton component */}
+      {/*Radiobutton component */}
       <Text style = {Styles.subTitles}>Gender</Text>
       <RadioButton.Group onValueChange = {newValue => setGender(newValue)} value={gender}>
         <View>
@@ -73,10 +75,10 @@ export default function App() {
         </View>
       </RadioButton.Group>
 
-      {/*Bottles component */}
+      {/*Bottles and hours component */}
       <Text style = {Styles.subTitles}>            Bottles                               Hours</Text>
   
-      <View style ={{justifyContent: "space-around", flexDirection: "row" }}>
+      <View style ={{justifyContent: "space-around", flexDirection: "row", marginBottom:50 }}>
       
       <NumericInput 
       minValue={0}
@@ -86,6 +88,7 @@ export default function App() {
       borderColor = "#A1A499"
       rightButtonBackgroundColor={"#B0BBBF"}
       leftButtonBackgroundColor={"#B0BBBF"}/>
+
       <NumericInput  
       minValue={0}
       value ={time}
@@ -96,8 +99,8 @@ export default function App() {
       leftButtonBackgroundColor={"#B0BBBF"}/>
       </View>
 
-       {/*Results component*/}
-       <Text> Alcohol level is {}</Text>
+      {/*Results component*/}
+      <Text style = {Styles.subTitles}> Your alcohol level is {result} ‰</Text>
 
       {/*Calculate component*/}
       <TouchableOpacity onPress={alcoholConcentration}>
