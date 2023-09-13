@@ -1,22 +1,47 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { TouchableOpacity, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
+import { TouchableOpacity, ScrollView, StyleSheet, Switch, Text, View, Alert } from 'react-native';
 import NumericInput from "react-native-numeric-input";
 import { RadioButton, TextInput } from 'react-native-paper';
 import Styles from "./styles/styles.js";
 
 export default function App() {
+  
+  const [weight, setWeight] = useState("");
+  const [bottles, setBottles] = useState(0);
+  const [time, setTime] = useState(0);
+  const [gender, setGender] = useState("male");
 
-  const [value, setValue] = useState("");
+  const alcoholConcentration = () => {
+    if (! weight) {
+      Alert.alert ("Warning!", "Please enter you weight");
+      return;
+    }
 
-  const [radioval, setRadioval] = useState("female");
-  const [number, onChangeNumber] = useState("");
+  //Calculating permilles
+  const gramsLeft = ((bottles * 0.33) * 8 * 4.5) - ((weight / 10) * time);
+
+  let permilles;
+
+  if (gender === "male") {
+    permilles = gramsLeft / (weight * 0.7);
+  }
+  else {
+    permilles = gramsLeft / (weight * 0.6);
+  }
+  
+  if (permilles < 0) {
+    permilles = 0;
+  }
+  console.log (permilles)
+};
 
   
 
 
   return (
     <View style={Styles.container}>
+      <ScrollView>
       <View style ={{justifyContent: "flex-start", flexDirection: "column" }}>
       <Text>Change the color</Text>
       <Switch/>
@@ -31,14 +56,13 @@ export default function App() {
       <Text style ={Styles.subTitles}>Weight</Text>
       <TextInput style={Styles.submit}
       keyboardType='number-pad'
-      onChangeText={onChangeNumber}
-      value={number}
-      placeholder={"Enter you weight (kg)"}
-      clearTextOnFocus= "true"/>
+      onChangeText={setWeight}
+      value={weight}
+      placeholder={"Enter you weight (kg)"}/>
 
             {/*Radiobutton component */}
       <Text style = {Styles.subTitles}>Gender</Text>
-      <RadioButton.Group onValueChange = {newValue => setRadioval(newValue)} value={radioval}>
+      <RadioButton.Group onValueChange = {newValue => setGender(newValue)} value={gender}>
         <View>
           <RadioButton value = "female"/>
           <Text>Female</Text>
@@ -55,15 +79,17 @@ export default function App() {
       <View style ={{justifyContent: "space-around", flexDirection: "row" }}>
       
       <NumericInput 
-      minValue={0} 
-      onChange={v => setValue(v)}
+      minValue={0}
+      value={bottles}
+      onChange={v => setBottles(v)}
       rounded 
       borderColor = "#A1A499"
       rightButtonBackgroundColor={"#B0BBBF"}
       leftButtonBackgroundColor={"#B0BBBF"}/>
-      <NumericInput 
-      minValue={0} 
-      onChange={v => setValue(v)}
+      <NumericInput  
+      minValue={0}
+      value ={time}
+      onChange={v => setTime(v)}
       rounded
       borderColor = "#A1A499"
       rightButtonBackgroundColor={"#B0BBBF"}
@@ -71,15 +97,16 @@ export default function App() {
       </View>
 
        {/*Results component*/}
-       <Text></Text>
+       <Text> Alcohol level is {}</Text>
 
       {/*Calculate component*/}
-      <TouchableOpacity onPress={()=>console.log("Submit")}>
+      <TouchableOpacity onPress={alcoholConcentration}>
           <Text style = {Styles.button}>CALCULATE</Text>
         </TouchableOpacity> 
 
 
       <StatusBar style="auto" />
+      </ScrollView>
     </View>
   );
 }
