@@ -2,12 +2,21 @@ import { StyleSheet } from "react-native";
 import Constants from "expo-constants";
 
 export default StyleSheet.create({
-    container: {
+    containerLight: {
         flex: 1,
         marginTop: Constants.statusBarHeight+5,
-        backgroundColor: '#E2D4B7',
+        backgroundColor: '#E2DED0',
         //alignItems: 'center',
         //justifyContent: 'center',
+    },
+
+    containerDark: {
+        flex: 1,
+        marginTop: Constants.statusBarHeight+5,
+        backgroundColor: '#746C70',
+        //alignItems: 'center',
+        //justifyContent: 'center',
+
     },
 
     headerPosition: {
@@ -21,17 +30,27 @@ export default StyleSheet.create({
 
     },
 
-    header: {  fontWeight: "bold",
-    fontSize: 25,},
+    header: {  
+        fontWeight: "bold",
+        fontSize: 25,},
+
+    switchPosition: {
+        padding:10,
+        margin: 10,
+        justifycontent: "flex-start",
+        flexdirection: "row",
+        alignItems: "flex-start",
+    },
 
     subTitles: {
         fontWeight: "bold",
         fontSize: 20,
-        margin: 5
+        margin: 5,
+        padding:5
     },
 
     submit: {
-        borderColor: "#A1A499",
+        borderColor: "#4E4F50",
         borderWidth: 3,
         padding: 3,
         margin: 5,
@@ -40,21 +59,38 @@ export default StyleSheet.create({
         overflow: "hidden",
     },
 
-    numInput:{
+    radioButtonText:{
+        fontSize: 15,
+        fontWeight: "bold",
+        margin: 5,
+    },
 
+    numInput:{
+        justifyContent: "space-around", 
+        flexDirection: "row", 
+        marginBottom:20 
     },
 
     button: {
         borderWidth: 1,
         borderRadius: 5,
         overflow: "hidden", //applessa että reunoihin saa radiuksen näkyviin
-        color: "black",
+        color: "#000000",
         backgroundColor: "#A1A499",
-        padding: 15,
+        padding: 20,
         margin: 30,
         textAlign: "center",
-        fontSize: 22,
+        fontSize: 25,
         fontWeight: "bold"
-    }
+    },
 
 })
+
+export const colors = {
+    color1: "#059a30ff",
+    color2: "#f1f911",
+    color3: "#f30909"
+    
+}
+//Colors
+// Bluegray #647C90, Ivory #E2DED0, Cool gray #4E4F50, Gray #746C70 

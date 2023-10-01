@@ -1,21 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { TouchableOpacity, ScrollView, StyleSheet, Switch, Text, View, Alert } from 'react-native';
 import NumericInput from "react-native-numeric-input";
 import { RadioButton, TextInput } from 'react-native-paper';
 import Styles from "./styles/styles.js";
+import { colors } from './styles/styles.js';
 
 export default function App() {
   
+  //State variables
   const [weight, setWeight] = useState("");
   const [bottles, setBottles] = useState(0);
   const [time, setTime] = useState(0);
   const [gender, setGender] = useState("male");
-  const [result, setResult] = useState("");
+  const [resultText, setResultText] = useState("");
+  const [resultColor, setResutlColor] = useState("");
+
+  const [isDarkstyle, setIsDarkStyle] = useState("false");
+  const info = isDarkstyle ? "Switch to light theme" : "Switch to dark theme";
+  const currentStyle = isDarkstyle ? Styles.containerDark : Styles.containerLight;
+
 
   const alcoholConcentration = () => {
+    
+  //Alert if weight is not inserted  
     if (! weight) {
-      Alert.alert ("Warning!", "Please enter you weight");
+      Alert.alert ("Warning!", "Your weight is missing.");
       return;
     }
 
@@ -34,19 +43,40 @@ export default function App() {
   if (permilles < 0) {
     permilles = 0;
   }
-  //Showing the result
-  setResult(permilles.toFixed(2));
-};
-
   
+  //Result text and color
+  let resultText, resultColor;
+  if (permilles <= 0.0) {
+    resultText = "You are safe to drive. Your alcohol concentration is " + permilles.toFixed(2) + "‰";
+    resultColor = colors.color1;
+  }
+  else if (permilles <= 0.5 || permilles <= 0.22) {
+    resultText = "You may be tipsy. Your blood alcohol concentration is " + permilles.toFixed(2) + "‰";
+    resultColor = colors.color2;
+  }
+  else {
+    resultText = "Do not drive! Your alcohol concentration is " + permilles.toFixed(2) + "‰";
+    resultColor = colors.color3;
+  }
+
+  //Showing the result
+  setResultText(resultText);
+  setResutlColor(resultColor);
+};
 
 
   return (
-    <View style={Styles.container}>
+    <View style={currentStyle}>
       <ScrollView>
-      <View style ={{justifyContent: "flex-start", flexDirection: "column" }}>
-      <Text>Change the color</Text>
-      <Switch/>
+
+      {/*Switch button*/}
+      <View style ={[Styles.switchPosition]}>
+      <Text>{info}</Text>
+      <Switch
+      value = {isDarkstyle}
+      onValueChange = {() => setIsDarkStyle(!isDarkstyle)}
+      thumbColor="black"
+      />
       </View>
 
       {/*Headline*/}
@@ -55,7 +85,7 @@ export default function App() {
       </View>
 
       {/*Weight component */}
-      <Text style ={Styles.subTitles}>Weight</Text>
+      <Text style ={Styles.subTitles}>Weight (kg)</Text>
       <TextInput style={Styles.submit}
       keyboardType='number-pad'
       onChangeText={setWeight}
@@ -64,21 +94,23 @@ export default function App() {
 
       {/*Radiobutton component */}
       <Text style = {Styles.subTitles}>Gender</Text>
+      <View style = {{flexDirection: "row", justifyContent: "space-between", marginBottom: 20, marginTop: 20, marginLeft: 20, marginRight: 20}}>
       <RadioButton.Group onValueChange = {newValue => setGender(newValue)} value={gender}>
         <View>
-          <RadioButton value = "female"/>
-          <Text>Female</Text>
+          <RadioButton value = "female" color= "#a20d0d"/>
+          <Text style = {Styles.radioButtonText}>Female</Text>
         </View>
         <View>
-          <RadioButton value = "male"/>
-          <Text>Male</Text>
+          <RadioButton value = "male" color = "#bd0f0f"/>
+          <Text style = {Styles.radioButtonText}>Male</Text>
         </View>
       </RadioButton.Group>
+      </View>
 
       {/*Bottles and hours component */}
       <Text style = {Styles.subTitles}>            Bottles                               Hours</Text>
   
-      <View style ={{justifyContent: "space-around", flexDirection: "row", marginBottom:50 }}>
+      <View style ={[Styles.numInput]}>
       
       <NumericInput 
       minValue={0}
@@ -100,15 +132,13 @@ export default function App() {
       </View>
 
       {/*Results component*/}
-      <Text style = {Styles.subTitles}> Your alcohol level is {result} ‰</Text>
+      <Text style = {{...Styles.subTitles, color: resultColor}}>{resultText}</Text>
 
       {/*Calculate component*/}
       <TouchableOpacity onPress={alcoholConcentration}>
           <Text style = {Styles.button}>CALCULATE</Text>
         </TouchableOpacity> 
 
-
-      <StatusBar style="auto" />
       </ScrollView>
     </View>
   );
