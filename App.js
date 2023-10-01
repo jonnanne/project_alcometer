@@ -94,14 +94,14 @@ export default function App() {
 
       {/*Radiobutton component */}
       <Text style = {Styles.subTitles}>Gender</Text>
-      <View style = {{flexDirection: "row", justifyContent: "space-between", marginBottom: 20, marginTop: 20, marginLeft: 20, marginRight: 20}}>
+      <View style = {[Styles.radioButtonContainer]}>
       <RadioButton.Group onValueChange = {newValue => setGender(newValue)} value={gender}>
         <View>
-          <RadioButton value = "female" color= "#a20d0d"/>
+          <RadioButton value = "female" color= {colors.radioButtonFemale}/>
           <Text style = {Styles.radioButtonText}>Female</Text>
         </View>
         <View>
-          <RadioButton value = "male" color = "#bd0f0f"/>
+          <RadioButton value = "male" color = {colors.radioButtonMale}/>
           <Text style = {Styles.radioButtonText}>Male</Text>
         </View>
       </RadioButton.Group>
@@ -117,22 +117,22 @@ export default function App() {
       value={bottles}
       onChange={v => setBottles(v)}
       rounded 
-      borderColor = "#A1A499"
-      rightButtonBackgroundColor={"#B0BBBF"}
-      leftButtonBackgroundColor={"#B0BBBF"}/>
+      borderColor = {colors.numInputBorder}
+      rightButtonBackgroundColor={colors.numInputBackground}
+      leftButtonBackgroundColor={colors.numInputBackground}/>
 
       <NumericInput  
       minValue={0}
       value ={time}
       onChange={v => setTime(v)}
       rounded
-      borderColor = "#A1A499"
-      rightButtonBackgroundColor={"#B0BBBF"}
-      leftButtonBackgroundColor={"#B0BBBF"}/>
+      borderColor = {colors.numInputBorder}
+      rightButtonBackgroundColor={colors.numInputBackground}
+      leftButtonBackgroundColor={colors.numInputBackground}/>
       </View>
 
       {/*Results component*/}
-      <Text style = {{...Styles.subTitles, color: resultColor}}>{resultText}</Text>
+      <Text style = {{...Styles.resultText, color: resultColor}}>{resultText}</Text>
 
       {/*Calculate component*/}
       <TouchableOpacity onPress={alcoholConcentration}>
@@ -144,6 +144,4 @@ export default function App() {
   );
 }
 
-
-// colors wb E2D4B7, bb 9C9583, txt A1A499, B0BBBF, CADBC8
 

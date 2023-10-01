@@ -59,6 +59,15 @@ export default StyleSheet.create({
         overflow: "hidden",
     },
 
+    radioButtonContainer: {
+        flexDirection: "row", 
+        justifyContent: "space-between", 
+        marginBottom: 20, 
+        marginTop: 20, 
+        marginLeft: 20, 
+        marginRight: 20
+    },
+
     radioButtonText:{
         fontSize: 15,
         fontWeight: "bold",
@@ -71,14 +80,21 @@ export default StyleSheet.create({
         marginBottom:20 
     },
 
+    resultText: {
+        fontWeight: "bold",
+        fontSize: 22,
+        margin: 15,
+        padding: 15,
+        alignItems: "center"
+    },
+
     button: {
         borderWidth: 1,
         borderRadius: 5,
         overflow: "hidden", //applessa että reunoihin saa radiuksen näkyviin
-        color: "#000000",
         backgroundColor: "#A1A499",
         padding: 20,
-        margin: 30,
+        margin: 20,
         textAlign: "center",
         fontSize: 25,
         fontWeight: "bold"
@@ -89,7 +105,11 @@ export default StyleSheet.create({
 export const colors = {
     color1: "#059a30ff",
     color2: "#f1f911",
-    color3: "#f30909"
+    color3: "#f30909",
+    radioButtonFemale: "#3a1c1c",
+    radioButtonMale: "#3a1c1c",
+    numInputBackground: "#B0BBBF",
+    numInputBorder: "#A1A499"
     
 }
 //Colors
