@@ -108,7 +108,7 @@ export default function App() {
       </View>
 
       {/*Bottles and hours component */}
-      <Text style = {Styles.subTitles}>            Bottles                               Hours</Text>
+      <Text style = {Styles.subTitles}>            Bottles                          Hours</Text>
   
       <View style ={[Styles.numInput]}>
       

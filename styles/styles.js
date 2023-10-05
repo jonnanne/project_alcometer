@@ -63,7 +63,7 @@ export default StyleSheet.create({
         flexDirection: "row", 
         justifyContent: "space-between", 
         marginBottom: 20, 
-        marginTop: 20, 
+        marginTop: 5, 
         marginLeft: 20, 
         marginRight: 20
     },
